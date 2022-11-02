@@ -7,9 +7,11 @@ require_once("models/Messages.php");
 require_once("dao/UserDAO.php");
 
 $message = new Messages($BASE_URL);
+$userDao = new UserDAO($conn, $BASE_URL);
 
 // get type of forms
 $type = filter_input(INPUT_POST, "type");
+
 // verify type of form
 if ($type === "register") {
   $name  = filter_input(INPUT_POST, "nameInput");
@@ -18,9 +20,30 @@ if ($type === "register") {
   $confirmPassword  = filter_input(INPUT_POST, "confirmPasswordInput");
 
   if ($name && $email && $password) {
+    // Check password
+    if ($password === $confirmPassword) {
+      // Check email registered
+      if ($userDao->findByEmail($email) === false) {
+        $user = new User();
+        // Create token
+        $userToken = $user->generateToken();
+        $finalPassword = $user->generatePassword($password);
+        // Create Object
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = $finalPassword;
+        $user->token = $userToken;
+
+        $auth = true;
+        $userDao->create($user, $auth);
+      } else {
+        $message->setMessage("Usuário já cadastrado.", "danger", "back");
+      }
+    } else {
+      $message->setMessage("As senhas devem ser iguais.", "danger", "back");
+    }
   } else {
-    // Send messages
-    $message->setMessage("Todos os campos são obrigatórios.", "error", "back");
+    $message->setMessage("Todos os campos são obrigatórios.", "danger", "back");
   }
 } else if ($type === "login") {
 }

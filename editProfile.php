@@ -1,13 +1,15 @@
 <?php
 require_once("helpers.php");
 include_once('templates/header.php');
+// $userDao came from header
+$userDao->verifyToken(true);
 ?>
 
 <div class="container mt-3">
   <div class="row">
     <div class="col-md-4 m-auto bg-blue">
-      <h1 class="text-center">Criar Conta</h1>
-      <form method="POST" action="auth.php">
+      <h1 class="text-center">Editar Perfil</h1>
+      <!-- <form method="POST" action="auth.php">
         <input type="hidden" name="type" value="register">
         <div class="mb-3">
           <label for="nameInput" class="form-label">Nome Completo</label>
@@ -26,7 +28,7 @@ include_once('templates/header.php');
           <input type="password" class="form-control" id="confirmPasswordInput" name="confirmPasswordInput" />
         </div>
         <button type="submit" class="btn btn-dark w-100">Registrar</button>
-      </form>
+      </form> -->
     </div>
 
   </div>

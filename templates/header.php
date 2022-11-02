@@ -1,6 +1,18 @@
 <?php
 include_once('helpers.php');
 include_once('connection.php');
+require_once('dao/UserDAO.php');
+require_once("models/Messages.php");
+
+$userDao = new UserDAO($conn, $BASE_URL);
+$userData = $userDao->verifyToken(false);
+
+$messages = new Messages($BASE_URL);
+$getMessage = $messages->getMessage();
+
+if (!empty($getMessage['textMessage'])) {
+  $messages->clearMessage();
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +44,17 @@ include_once('connection.php');
             <li class="nav-item">
               <a class="nav-link" href="register.php">Register</a>
             </li>
+            <?php if ($userData) : ?>
+              <li class="nav-item">
+                <a class="nav-link" href="editProfile.php">Edit Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="dashboard.php">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="logout.php">Logout</a>
+              </li>
+            <?php endif; ?>
           </ul>
           <form class="d-flex" role="search" method="GET">
             <input class="form-control me-2" type="search" placeholder="Buscar Filme" aria-label="Pesquisar">
@@ -41,3 +64,11 @@ include_once('connection.php');
       </div>
     </nav>
   </header>
+
+  <div class="messages mt-2 col-md-4 mx-auto">
+    <?php if (!empty($getMessage['textMessage'])) : ?>
+      <div class="alert alert-<?= $getMessage['typeMessage']; ?> text-center" role="alert">
+        <?= $getMessage['textMessage']; ?>
+      </div>
+    <?php endif; ?>
+  </div>

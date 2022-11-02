@@ -1,22 +1,13 @@
 <?php
 include_once('templates/header.php');
-$messages = [];
 ?>
 
 <div class="container mt-3">
-  <div class="messages">
-    <?php if (!empty($messages["message"])) : ?>
-      <div class="alert alert-<?php $messages["type"]; ?> text-center" role="alert">
-        <?php $messages["message"]; ?>
-      </div>
-    <?php endif; ?>
-  </div>
-
   <div class="row">
     <div class="col-md-4 m-auto bg-blue">
       <h1 class="text-center">Acessar Sistema</h1>
       <form method="POST">
-      <input type="hidden" name="type" value="login">
+        <input type="hidden" name="type" value="login">
         <div class="mb-3">
           <label for="emailInput" class="form-label">Email</label>
           <input type="email" class="form-control" id="emailInput" name="emailInput">

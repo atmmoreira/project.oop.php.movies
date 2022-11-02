@@ -33,5 +33,7 @@ class Messages
   }
   public function clearMessage()
   {
+    $_SESSION["textMessage"] = "";
+    $_SESSION["typeMessage"] = "";
   }
 }
