@@ -7,8 +7,8 @@ $userDao->verifyToken(true);
 
 <div class="container mt-3">
   <div class="row">
-    <div class="col-md-4 m-auto bg-blue">
-      <h1 class="text-center">Editar Perfil</h1>
+    <div class="col-md-6 m-auto bg-blue">
+      <h1 class="text-center">Editar Perfil :: <?= $userData->name; ?> </h1>
       <!-- <form method="POST" action="auth.php">
         <input type="hidden" name="type" value="register">
         <div class="mb-3">

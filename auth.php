@@ -46,4 +46,13 @@ if ($type === "register") {
     $message->setMessage("Todos os campos são obrigatórios.", "danger", "back");
   }
 } else if ($type === "login") {
+  $email  = filter_input(INPUT_POST, "emailInput");
+  $password  = filter_input(INPUT_POST, "passwordInput");
+  // Autentication
+  if ($userDao->authenticateUser($email, $password)) {
+  } else {
+    $message->setMessage("Usuário e/ou senha incorretos!", "danger", "back");
+  }
+}else {
+  $message->setMessage("Informações inválidas!", "danger", "index.php");
 }

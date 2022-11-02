@@ -6,7 +6,7 @@ include_once('templates/header.php');
   <div class="row">
     <div class="col-md-4 m-auto bg-blue">
       <h1 class="text-center">Acessar Sistema</h1>
-      <form method="POST">
+      <form method="POST" action="auth.php">
         <input type="hidden" name="type" value="login">
         <div class="mb-3">
           <label for="emailInput" class="form-label">Email</label>
