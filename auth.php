@@ -50,9 +50,10 @@ if ($type === "register") {
   $password  = filter_input(INPUT_POST, "passwordInput");
   // Autentication
   if ($userDao->authenticateUser($email, $password)) {
+    $message->setMessage("Seja bem vindo!", "success", "editProfile.php");
   } else {
     $message->setMessage("Usuário e/ou senha incorretos!", "danger", "back");
   }
-}else {
+} else {
   $message->setMessage("Informações inválidas!", "danger", "index.php");
 }

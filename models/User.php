@@ -6,7 +6,7 @@ class User
   public $name;
   public $email;
   public $password;
-  public $image;
+  public $avatar;
   public $biography;
   public $token;
 
@@ -32,6 +32,6 @@ interface IUserDAO
   public function findById($id);
   public function findByToken($token);
   public function setTokenToSession($token, $redirect = true);
-  public function update(User $user);
+  public function update(User $user, $redirect = true);
   public function verifyToken($protected = false);
 }

@@ -10,11 +10,11 @@ include_once('templates/header.php');
         <input type="hidden" name="type" value="login">
         <div class="mb-3">
           <label for="emailInput" class="form-label">Email</label>
-          <input type="email" class="form-control" id="emailInput" name="emailInput">
+          <input type="email" class="form-control" id="emailInput" name="emailInput" required>
         </div>
         <div class="mb-3">
           <label for="passwordInput" class="form-label">Senha</label>
-          <input type="password" class="form-control" id="passwordInput" name="passwordInput">
+          <input type="password" class="form-control" id="passwordInput" name="passwordInput" required>
         </div>
         <button type="submit" class="btn btn-dark w-100">Logar</button>
       </form>

@@ -22,7 +22,7 @@ class UserDAO implements IUserDAO
     $user->name = $data["name"];
     $user->email = $data["email"];
     $user->password = $data["password"];
-    $user->image = $data["avatar"];
+    $user->avatar = $data["avatar"];
     $user->biography = $data["biography"];
     $user->token = $data["token"];
     return $user;
@@ -45,13 +45,26 @@ class UserDAO implements IUserDAO
     $_SESSION["token"] = "";
     $this->message->setMessage("Você foi desconectado com sucesso!", "success", "login.php");
   }
-  public function update(User $user)
+  public function update(User $user, $redirect = true)
   {
+    $stmt = $this->conn->prepare("UPDATE tbUsers SET name = :name, email = :email, password = :password, avatar = :avatar, biography = :biography, token = :token WHERE id =:id");
+    $stmt->bindParam(":id", $user->id);
+    $stmt->bindParam(":name", $user->name);
+    $stmt->bindParam(":email", $user->email);
+    $stmt->bindParam(":password", $user->password);
+    $stmt->bindParam(":avatar", $user->avatar);
+    $stmt->bindParam(":biography", $user->biography);
+    $stmt->bindParam(":token", $user->token);
+    $stmt->execute();
+
+    if ($redirect) {
+      $this->message->setMessage("Dados atualizados com sucesso!", "success", "back");
+    }
   }
   public function verifyToken($protected = false)
   {
-    $token = $_SESSION["token"];
-    if (!empty($token)) {
+    if (!empty($_SESSION["token"])) {
+      $token = $_SESSION["token"];
       $user = $this->findByToken($token);
       if ($user) {
         return $user;
@@ -77,10 +90,11 @@ class UserDAO implements IUserDAO
     if ($user) {
       if (password_verify($password, $user->password)) {
         $token = $user->generateToken();
-        $this->setTokenToSession($token);
+        $this->setTokenToSession($token, false);
         // Update token user
         $user->token = $token;
-        $this->update($user);
+        $this->update($user, false);
+        return true;
       } else {
         return false;
       }
