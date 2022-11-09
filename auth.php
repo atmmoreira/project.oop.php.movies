@@ -75,6 +75,7 @@ if ($type === "register") {
     $avatarTypes = ["image/jpeg", "image/jpg", "image/png"];
     $avatarJpegTypes = ["image/jpeg", "image/jpg"];
 
+    // Verificar porque não salva jpeg-jpg
     if (in_array($avatar["type"], $avatarTypes)) {
       if (in_array($avatar, $avatarJpegTypes)) {
         $imageFile = imagecreatefromjpeg($avatar["tmp_name"]);
@@ -83,13 +84,7 @@ if ($type === "register") {
       }
 
       $imageName = $user->generateImageName();
-      try {
-
-        imagejpeg($imageFile, "./assets/images/" . $imageName, 100);
-      } catch (\Throwable $th) {
-        throw $th;
-      }
-
+      imagejpeg($imageFile, "./assets/images/" . $imageName, 100);
       $userData->avatar = $imageName;
     } else {
       $message->setMessage("Tipo inválido de imagem!", "danger", "index.php");

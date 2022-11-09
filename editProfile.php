@@ -17,6 +17,7 @@ $userDao->verifyToken(true);
             <img src="assets/images/<?= $userData->avatar; ?>" class="img-thumbnail img-fluid" alt="...">
             <div class="mb-3 mt-2">
               <input class="form-control form-control-sm file w-100" data-preview-file-type="text" type="file" id="avatarInput" name="avatarInput" placeholder="">
+              <small class="text-danger text-uppercase">Somente PNG.</small>
             </div>
           </div>
           <div class="col">
