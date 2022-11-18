@@ -60,13 +60,11 @@ if ($type === "register") {
   // Get data from POST
   $name = filter_input(INPUT_POST, "nameInput");
   $email = filter_input(INPUT_POST, "emailInput");
-  $password = filter_input(INPUT_POST, "passwordInput");
   $biography = filter_input(INPUT_POST, "biographyInput");
 
   // Filled data user
   $userData->name = $name;
   $userData->email = $email;
-  $userData->password = $password;
   $userData->biography = $biography;
 
   // Image
@@ -92,6 +90,21 @@ if ($type === "register") {
   }
   // Update User
   $userDao->update($userData);
+} else if ($type === "changePassword") {
+  $password = filter_input(INPUT_POST, "passwordInput");
+  $confirmPassword = filter_input(INPUT_POST, "confirmPasswordInput");
+  $userData = $userDao->verifyToken();
+  $id = $userData->id;
+
+  if ($password == $confirmPassword) {
+    $user = new User();
+    $finalPassword = $user->generatePassword($password);
+    $user->password = $finalPassword;
+    $user->id = $id;
+    $userDao->changePassword($user);
+  } else {
+    $message->setMessage("Senhas devem ser iguais!", "warning", "back");
+  }
 } else {
   $message->setMessage("Informações inválidas!", "danger", "back");
 }

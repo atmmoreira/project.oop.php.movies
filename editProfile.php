@@ -37,22 +37,19 @@ $userDao->verifyToken(true);
           </div>
         </div>
         <div class="row">
-          <div class="mb-3 col">
-            <label for="passwordInput" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="passwordInput" name="passwordInput" value="<?= $userData->password; ?>" />
-          </div>
-          <div class="mb-3 col">
-            <label for="confirmPasswordInput" class="form-label">Confirmar Senha</label>
-            <input type="password" class="form-control" id="confirmPasswordInput" name="confirmPasswordInput" value="<?= $userData->password; ?>" />
-          </div>
-        </div>
-        <div class="row">
           <div class="mb-3">
             <label for="biographyInput" class="form-label">Biografia</label>
             <textarea class="form-control" id="biographyInput" name="biographyInput" rows="3"><?= $userData->biography; ?></textarea>
           </div>
         </div>
-        <button type="submit" class="btn btn-dark w-100 mt-3">Atualizar</button>
+        <div class="row">
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-dark w-100 mt-3">Atualizar Dados</button>
+          </div>
+          <div class="col-md-6">
+            <a href="editPassword.php" class="btn btn-danger w-100 mt-3">Atualizar senha</a>
+          </div>
+        </div>
       </form>
     </div>
 

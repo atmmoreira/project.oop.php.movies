@@ -143,5 +143,10 @@ class UserDAO implements IUserDAO
   }
   public function changePassword(User $user)
   {
+    $stmt = $this->conn->prepare("UPDATE tbUsers SET password = :password WHERE id = :id");
+    $stmt->bindParam(":id", $user->id);
+    $stmt->bindParam(":password", $user->password);
+    $stmt->execute();
+    $this->message->setMessage("Senha atualizada com sucesso!", "success", "editProfile.php");
   }
 }
